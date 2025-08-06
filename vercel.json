@@ -1,13 +1,6 @@
 {
   "name": "southernpool-co",
   "version": 2,
-  "builds": [],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
-    }
-  ],
   "headers": [
     {
       "source": "/photos/(.*)",
