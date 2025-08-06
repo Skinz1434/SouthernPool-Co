@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SouthernPool Co - Premium pool construction in Louisiana. Family-owned, locally-operated pool builders creating backyard oases since 1985.">
+    <title>SouthernPool Co | Louisiana's Premier Pool Builders</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+        <div class="hero-overlay"></div>
+        <lottie-player 
+            src="animations/water-ripple.json" 
+            background="transparent" 
+            speed="0.5" 
+            class="hero-lottie"
+            loop 
+            autoplay>
+        </lottie-player>
+        <div class="hero-content">
+            <h1 class="hero-title">Crafting the Pool of Your Dreams</h1>
+            <h3 class="hero-subtitle">Built right here in Louisiana, by locals who treat you like family.</h3>
+            <button class="cta-primary" onclick="scrollToQuote()">Start Your Backyard Oasis</button>
+        </div>
+    </section>
+
+    <!-- Navigation -->
+    <nav class="sticky-nav" aria-label="Main navigation">
+        <div class="nav-container">
+            <img src="photos/logo2.png" alt="SouthernPool Co Logo" class="nav-logo">
+            <ul class="nav-links">
+                <li><a href="#features">Our Work</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#quote">Get Quote</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Features/About Section -->
+    <section id="features" class="features-section">
+        <div class="feature-row fade-in">
+            <div class="feature-image">
+                <img src="photos/augpool3.jpg" alt="Luxury pool with stone features" loading="lazy">
+            </div>
+            <div class="feature-content">
+                <h2>Artisan Craftsmanship</h2>
+                <p>Every pool we build is a testament to Louisiana's rich tradition of quality craftsmanship. Our team brings three generations of experience to your backyard.</p>
+                <ul class="feature-list">
+                    <li>Custom stone and tile work</li>
+                    <li>Energy-efficient systems</li>
+                    <li>Hurricane-resistant construction</li>
+                </ul>
+                <lottie-player 
+                    src="animations/hammer-wave.json" 
+                    background="transparent" 
+                    speed="1" 
+                    class="feature-lottie"
+                    hover>
+                </lottie-player>
+            </div>
+        </div>
+
+        <div class="feature-row fade-in reverse">
+            <div class="feature-content">
+                <h2>Family-First Approach</h2>
+                <p>When you work with SouthernPool Co, you're not just a client—you're family. We treat every project like we're building for our own backyard.</p>
+                <ul class="feature-list">
+                    <li>Transparent pricing, no surprises</li>
+                    <li>Weekly progress updates</li>
+                    <li>Lifetime support guarantee</li>
+                </ul>
+            </div>
+            <div class="feature-image">
+                <img src="photos/fam2.jpg" alt="Happy family enjoying their pool" loading="lazy">
+            </div>
+        </div>
+
+        <div class="feature-row fade-in">
+            <div class="feature-image">
+                <img src="photos/decpool1rainbow.jpg" alt="Pool with rainbow lighting effects" loading="lazy">
+            </div>
+            <div class="feature-content">
+                <h2>Smart Pool Technology</h2>
+                <p>Embrace the future with automated systems that make pool ownership effortless. Control everything from your phone.</p>
+                <ul class="feature-list">
+                    <li>App-controlled lighting & heating</li>
+                    <li>Self-cleaning systems</li>
+                    <li>Water chemistry automation</li>
+                </ul>
+                <lottie-player 
+                    src="animations/tech-pulse.json" 
+                    background="transparent" 
+                    speed="1" 
+                    class="feature-lottie"
+                    hover>
+                </lottie-player>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="testimonials-section">
+        <h2 class="section-title">What Our Neighbors Say</h2>
+        <div class="testimonial-carousel" aria-live="polite">
+            <div class="testimonial-slide active">
+                <img src="photos/kiddos.jpg" alt="Happy customer" class="testimonial-avatar">
+                <blockquote class="testimonial-quote">
+                    "SouthernPool transformed our backyard into a paradise. The kids haven't stopped smiling since!"
+                </blockquote>
+                <div class="testimonial-author">Sarah Martinez, Baton Rouge</div>
+                <div class="star-rating" aria-label="5 out of 5 stars">
+                    <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                </div>
+            </div>
+            <div class="testimonial-slide">
+                <img src="photos/Fam1.jpg" alt="Happy customer" class="testimonial-avatar">
+                <blockquote class="testimonial-quote">
+                    "Professional, punctual, and the quality is outstanding. Worth every penny!"
+                </blockquote>
+                <div class="testimonial-author">Mike Thompson, Lafayette</div>
+                <div class="star-rating" aria-label="5 out of 5 stars">
+                    <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                </div>
+            </div>
+            <div class="testimonial-slide">
+                <img src="photos/augpool6.jpg" alt="Happy customer" class="testimonial-avatar">
+                <blockquote class="testimonial-quote">
+                    "They treated us like family from day one. The attention to detail is incredible!"
+                </blockquote>
+                <div class="testimonial-author">Jennifer Davis, New Orleans</div>
+                <div class="star-rating" aria-label="5 out of 5 stars">
+                    <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-dots">
+            <button class="dot active" aria-label="Testimonial 1" onclick="goToSlide(0)"></button>
+            <button class="dot" aria-label="Testimonial 2" onclick="goToSlide(1)"></button>
+            <button class="dot" aria-label="Testimonial 3" onclick="goToSlide(2)"></button>
+        </div>
+    </section>
+
+    <!-- Quote Form -->
+    <section id="quote" class="quote-section">
+        <div class="quote-container">
+            <div class="quote-card" id="quoteCard">
+                <h2>Get Your Free Quote</h2>
+                <p>Let's start planning your perfect pool together.</p>
+                <form id="quoteForm" class="quote-form">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" required aria-required="true">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required aria-required="true">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required aria-required="true">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Tell us about your dream pool</label>
+                        <textarea id="description" name="description" rows="4" required aria-required="true"></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send My Request</button>
+                </form>
+            </div>
+            <div class="thank-you-card" id="thankYouCard" style="display: none;">
+                <h2>Thank You!</h2>
+                <p>We've received your request and will contact you within 24 hours.</p>
+                <p>Get ready to make a splash!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <p>&copy; 2024 SouthernPool Co. Proudly serving Louisiana since 1985.</p>
+    </footer>
+
+    <script src="script.js" defer></script>
+</body>
+</html>
