@@ -278,24 +278,24 @@ function generateGallery() {
   const galleryGrid = document.getElementById('galleryGrid');
   if (!galleryGrid) return;
   
-  // Pool image filenames from the photos directory
+  // Real descriptions from Dustin's family-focused perspective
   galleryImages = [
-    { src: 'photos/augpool1.jpg', title: 'Modern Pool Paradise' },
-    { src: 'photos/augpool2.jpg', title: 'Family Fun Zone' }, 
-    { src: 'photos/augpool3.jpg', title: 'Luxury Resort Style' },
-    { src: 'photos/augpool4.jpg', title: 'Evening Elegance' },
-    { src: 'photos/augpool5.jpg', title: 'Natural Integration' },
-    { src: 'photos/augpool6.jpg', title: 'Contemporary Design' },
-    { src: 'photos/augpool7.jpg', title: 'Backyard Oasis' },
-    { src: 'photos/decpool1rainbow.jpg', title: 'Rainbow Lighting Magic' },
-    { src: 'photos/decpool2rainbow.jpg', title: 'Colorful Nights' },
-    { src: 'photos/decpool3.jpg', title: 'Winter Beauty' },
-    { src: 'photos/julypool1.jpg', title: 'Summer Perfection' },
-    { src: 'photos/julpool2.jpg', title: 'Crystal Clear Waters' },
-    { src: 'photos/julypool3.jpg', title: 'Premium Craftsmanship' },
-    { src: 'photos/maypool1.jpg', title: 'Spring Serenity' },
-    { src: 'photos/maypool2.jpg', title: 'Landscaped Beauty' },
-    { src: 'photos/octpool1.jpg', title: 'Autumn Elegance' }
+    { src: 'photos/augpool1.jpg', title: 'Resort-Style Family Paradise - Mom and Dad finally have their dream getaway at home!' },
+    { src: 'photos/augpool2.jpg', title: 'Perfect for Summer Family Fun - The kids absolutely love this pool and so do the parents!' }, 
+    { src: 'photos/augpool3.jpg', title: 'Custom Stone Features - Natural Louisiana stone that makes this family feel connected to home' },
+    { src: 'photos/augpool4.jpg', title: 'Evening Family Time Paradise - The lighting creates magical moments for this family every night' },
+    { src: 'photos/augpool5.jpg', title: 'Blends with Their Family Garden - Feels like it was always meant to be part of their home' },
+    { src: 'photos/augpool6.jpg', title: 'Modern Family Pool - Clean design where three generations gather daily' },
+    { src: 'photos/augpool7.jpg', title: 'Private Family Retreat - Their own little paradise where memories are made' },
+    { src: 'photos/decpool1rainbow.jpg', title: 'Kids Go Crazy for the Rainbow Lights - Family movie nights just got better!' },
+    { src: 'photos/decpool2rainbow.jpg', title: 'Parents\' Evening Sanctuary - Perfect for unwinding while kids play safely' },
+    { src: 'photos/decpool3.jpg', title: 'Year-Round Family Beauty - Even Louisiana winters look stunning from their window' },
+    { src: 'photos/julypool1.jpg', title: 'Built for Louisiana Family Life - Stays refreshing through the hottest family BBQs' },
+    { src: 'photos/julpool2.jpg', title: 'Crystal Clear Family Time - Our filtration keeps it perfect for daily family swims' },
+    { src: 'photos/julypool3.jpg', title: 'Built to Last Generations - Every detail crafted thinking of their grandkids' },
+    { src: 'photos/maypool1.jpg', title: 'Peaceful Family Garden Oasis - Like a natural spring where kids learn to swim' },
+    { src: 'photos/maypool2.jpg', title: 'Eco-Friendly Family Design - Teaching kids to love nature while enjoying it' },
+    { src: 'photos/octpool1.jpg', title: 'Perfect for Family Gatherings - This family hosts the best neighborhood pool parties!' }
   ];
   
   // Shuffle for variety

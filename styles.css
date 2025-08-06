@@ -325,9 +325,8 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    background: linear-gradient(135deg, rgba(16,78,139,0.6) 0%, rgba(47,89,51,0.4) 100%),
-                url('photos/augpool3.jpg') center/cover;
-    animation: heroBackgroundCycle 20s infinite;
+    background: linear-gradient(135deg, rgba(135,206,235,0.4) 0%, rgba(30,58,138,0.7) 100%),
+                url('photos/fam2.jpg') center/cover;
   }
 
   @keyframes heroBackgroundCycle {
@@ -428,11 +427,11 @@
     margin: 0 auto;
     padding: 3rem 2rem;
     transition: transform 0.1s ease-out;
-    background: rgba(0, 0, 0, 0.25);
-    backdrop-filter: blur(15px);
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(20px);
     border-radius: var(--border-radius-lg);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: var(--shadow-premium);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: var(--shadow-premium), 0 0 40px rgba(0,0,0,0.3);
   }
 
   .hero-title {
@@ -440,13 +439,14 @@
     font-size: clamp(3rem, 8vw, 5.5rem);
     font-weight: 700;
     margin-bottom: 1.5rem;
-    background: linear-gradient(45deg, #ffffff 0%, #f0b35f 50%, #ffffff 100%);
-    background-size: 200% 200%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: goldShimmer 4s ease-in-out infinite;
-    text-shadow: 0 0 30px rgba(240,179,95,0.3);
+    color: white;
+    text-shadow: 
+      0 0 20px rgba(0,0,0,0.8),
+      0 4px 8px rgba(0,0,0,0.6),
+      2px 2px 0px rgba(0,0,0,0.9),
+      -2px -2px 0px rgba(0,0,0,0.9),
+      2px -2px 0px rgba(0,0,0,0.9),
+      -2px 2px 0px rgba(0,0,0,0.9);
   }
 
   @keyframes goldShimmer {
@@ -456,11 +456,15 @@
 
   .hero-subtitle {
     font-size: clamp(1.2rem, 3vw, 1.6rem);
-    font-weight: 300;
+    font-weight: 400;
     margin-bottom: 3rem;
-    opacity: 0.95;
+    color: white;
     letter-spacing: 0.5px;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    text-shadow: 
+      0 0 15px rgba(0,0,0,0.8),
+      0 2px 4px rgba(0,0,0,0.6),
+      1px 1px 0px rgba(0,0,0,0.8),
+      -1px -1px 0px rgba(0,0,0,0.8);
   }
 
   .cta-primary {
@@ -543,8 +547,10 @@
   /* === ENHANCED GALLERY WITH MASONRY === */
   .gallery-section {
     padding: 8rem 0;
-    background: linear-gradient(180deg, var(--cloud) 0%, rgba(16,78,139,0.02) 100%);
+    background: linear-gradient(135deg, rgba(15,23,42,0.85) 0%, rgba(30,58,138,0.85) 100%),
+                url('photos/julypool1.jpg') center/cover fixed;
     position: relative;
+    color: white;
   }
 
   .gallery-section::before {
@@ -722,8 +728,10 @@
   /* === ENHANCED SERVICE CARDS === */
   .services-section {
     padding: 8rem 0;
-    background: var(--cloud);
+    background: linear-gradient(135deg, rgba(47,89,51,0.9) 0%, rgba(16,78,139,0.9) 100%),
+                url('photos/maypool2.jpg') center/cover fixed;
     position: relative;
+    color: white;
   }
 
   .services-grid {
@@ -734,7 +742,7 @@
   }
 
   .service-card {
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(15px);
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: var(--border-radius-lg);
@@ -759,7 +767,8 @@
   .service-card:hover {
     transform: translateY(-12px);
     box-shadow: var(--shadow-elevated);
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(240, 179, 95, 0.5);
   }
 
   .service-card-inner {
@@ -795,16 +804,24 @@
     font-size: 1.5rem;
     font-weight: 600;
     margin-bottom: 1rem;
-    color: #0f172a; /* Fixed dark color for maximum contrast */
+    color: white;
     text-align: center;
+    text-shadow: 
+      0 0 15px rgba(0,0,0,0.8),
+      0 3px 6px rgba(0,0,0,0.6),
+      1px 1px 0px rgba(0,0,0,0.9);
   }
 
   .service-card p {
-    color: #1e293b; /* Darker shade for better contrast than var(--slate) */
+    color: white;
     line-height: 1.6;
     text-align: center;
     margin-bottom: 1.5rem;
-    font-weight: 500; /* Slightly bolder for better readability */
+    font-weight: 500;
+    text-shadow: 
+      0 0 10px rgba(0,0,0,0.8),
+      0 2px 4px rgba(0,0,0,0.6),
+      1px 1px 0px rgba(0,0,0,0.7);
   }
 
   .service-image {
@@ -854,7 +871,8 @@
   /* === ENHANCED PROCESS TIMELINE === */
   .process-section {
     padding: 8rem 0;
-    background: var(--gradient-primary);
+    background: linear-gradient(135deg, rgba(16,78,139,0.9) 0%, rgba(47,89,51,0.9) 100%),
+                url('photos/decpool2rainbow.jpg') center/cover fixed;
     color: white;
     position: relative;
     overflow: hidden;
@@ -979,8 +997,10 @@
   /* === ENHANCED TESTIMONIALS CAROUSEL === */
   .testimonials-section {
     padding: 8rem 0;
-    background: var(--cloud);
+    background: linear-gradient(135deg, rgba(30,58,138,0.9) 0%, rgba(15,23,42,0.95) 100%),
+                url('photos/augpool5.jpg') center/cover fixed;
     position: relative;
+    color: white;
   }
 
   .testimonials-carousel-container {
@@ -1003,11 +1023,15 @@
   .testimonial-slide {
     flex: 0 0 calc(100% / 3);
     padding: 2.5rem;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(15px);
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(20px);
     border-right: 1px solid rgba(255, 255, 255, 0.2);
     text-align: center;
     position: relative;
+    border-radius: var(--border-radius);
+    margin: 0 0.5rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   .testimonial-slide::before {
@@ -1034,10 +1058,15 @@
     font-size: 1.1rem;
     font-style: italic;
     margin-bottom: 1.5rem;
-    color: #1e293b; /* Fixed dark color for high contrast */
+    color: white;
     line-height: 1.6;
+    text-shadow: 
+      0 0 20px rgba(0,0,0,0.8),
+      0 4px 8px rgba(0,0,0,0.6),
+      2px 2px 0px rgba(0,0,0,0.9);
     position: relative;
-    font-weight: 500; /* Slightly bolder for readability */
+    font-weight: 600;
+    text-shadow: 0 1px 3px rgba(255,255,255,0.8);
   }
 
   .testimonial-quote::before,
@@ -1060,9 +1089,13 @@
   }
 
   .testimonial-author {
-    font-weight: 700; /* Bolder text */
-    color: #104e8b; /* Fixed bayou-blue color */
+    font-weight: 700;
+    color: white;
     margin-bottom: 0.5rem;
+    text-shadow: 
+      0 0 15px rgba(0,0,0,0.8),
+      0 3px 6px rgba(0,0,0,0.6),
+      1px 1px 0px rgba(0,0,0,0.9);
   }
 
   .testimonial-rating {
@@ -1379,6 +1412,32 @@
     background: var(--gradient-gold);
     transform: translateX(-50%);
     border-radius: 2px;
+  }
+
+  /* Special styling for sections with image backgrounds */
+  .gallery-section .section-title,
+  .services-section .section-title,
+  .testimonials-section .section-title,
+  .process-section .section-title {
+    color: white;
+    text-shadow: 
+      0 0 25px rgba(0,0,0,0.9),
+      0 6px 12px rgba(0,0,0,0.7),
+      3px 3px 0px rgba(0,0,0,0.9);
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+  }
+
+  .gallery-section .section-subtitle,
+  .services-section .section-subtitle,
+  .testimonials-section .section-subtitle,
+  .process-section .section-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 
+      0 0 15px rgba(0,0,0,0.8),
+      0 3px 6px rgba(0,0,0,0.6),
+      1px 1px 0px rgba(0,0,0,0.8);
   }
 
   .section-subtitle {
@@ -1797,6 +1856,38 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+  }
+
+  .social-links {
+    margin-top: 1.5rem;
+  }
+
+  .social-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--sunset-gold);
+    text-decoration: none;
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba(240,179,95,0.3);
+    border-radius: var(--border-radius);
+    background: rgba(240,179,95,0.1);
+    transition: all 0.3s var(--ease-premium);
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
+
+  .social-links a:hover {
+    background: rgba(240,179,95,0.2);
+    border-color: rgba(240,179,95,0.6);
+    transform: translateY(-2px);
+    color: white;
+  }
+
+  .social-links a svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
   }
 
   .footer-bottom {
