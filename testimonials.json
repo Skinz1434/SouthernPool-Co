@@ -1,0 +1,92 @@
+[
+  {
+    "name": "Sarah Martinez",
+    "city": "Baton Rouge", 
+    "quote": "SouthernPool transformed our backyard into a paradise. The kids haven't stopped smiling since! The attention to detail and Louisiana hospitality made the whole process enjoyable.",
+    "rating": 5,
+    "avatar": "photos/kiddos.jpg",
+    "project": "Family Pool with Safety Features",
+    "year": 2023
+  },
+  {
+    "name": "Mike Thompson",
+    "city": "Lafayette",
+    "quote": "Professional, punctual, and the quality is outstanding. Worth every penny! They treated our project like it was their own family's pool.",
+    "rating": 5, 
+    "avatar": "photos/Fam1.jpg",
+    "project": "Resort-Style Pool & Spa",
+    "year": 2023
+  },
+  {
+    "name": "Jennifer Davis",
+    "city": "New Orleans",
+    "quote": "They treated us like family from day one. The attention to detail is incredible! Our smart pool system is the envy of the neighborhood.",
+    "rating": 5,
+    "avatar": "photos/fam2.jpg", 
+    "project": "Smart Pool with Automation",
+    "year": 2024
+  },
+  {
+    "name": "Robert Johnson",
+    "city": "Shreveport",
+    "quote": "The smart pool technology is amazing. Everything is automated and crystal clear! I can control everything from my phone - it's like living in the future.",
+    "rating": 5,
+    "avatar": "photos/augpool2.jpg",
+    "project": "Infinity Pool with Tech Package",
+    "year": 2024
+  },
+  {
+    "name": "Lisa Chen",
+    "city": "Metairie",
+    "quote": "From consultation to completion, the entire process was seamless. They kept us informed every step and delivered exactly what we envisioned.",
+    "rating": 5,
+    "avatar": "photos/maypool1.jpg",
+    "project": "Custom Luxury Pool",
+    "year": 2023
+  },
+  {
+    "name": "James & Patricia Boudreaux", 
+    "city": "Lake Charles",
+    "quote": "As natives, we know Louisiana weather can be tough on pools. SouthernPool built ours to last through hurricanes and heat - still perfect after 3 years!",
+    "rating": 5,
+    "avatar": "photos/augpool3.jpg",
+    "project": "Hurricane-Resistant Pool Design", 
+    "year": 2021
+  },
+  {
+    "name": "Amanda Rodriguez",
+    "city": "Alexandria",
+    "quote": "The team went above and beyond! They even helped us with landscaping suggestions to complement our new pool. True professionals who care about the complete picture.",
+    "rating": 5,
+    "avatar": "photos/augpool4.jpg",
+    "project": "Integrated Landscape Pool Design",
+    "year": 2024
+  },
+  {
+    "name": "Kevin & Michelle Tran",
+    "city": "Monroe",
+    "quote": "We've had our pool for two years now and it still looks brand new. The construction quality is exceptional and the warranty service has been fantastic.",
+    "rating": 5,
+    "avatar": "photos/decpool1rainbow.jpg",
+    "project": "Evening Entertainment Pool",
+    "year": 2022
+  },
+  {
+    "name": "David Broussard",
+    "city": "Houma",
+    "quote": "SouthernPool Co understands Louisiana living. They built our pool to handle our unique soil conditions and weather patterns - no problems whatsoever!",
+    "rating": 5,
+    "avatar": "photos/julypool1.jpg",
+    "project": "Engineered Foundation Pool",
+    "year": 2023
+  },
+  {
+    "name": "Maria Gonzalez", 
+    "city": "Bossier City",
+    "quote": "The financing options made our dream pool affordable. The monthly payments fit our budget and now we have a resort in our backyard. Best investment we ever made!",
+    "rating": 5,
+    "avatar": "photos/octpool1.jpg",
+    "project": "Budget-Friendly Family Pool",
+    "year": 2024
+  }
+]
