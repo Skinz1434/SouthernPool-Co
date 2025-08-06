@@ -186,6 +186,45 @@ function initializeTestimonialCarousel() {
   
   updateTestimonialDisplay();
   
+  // Add touch/swipe support for mobile
+  const carousel = document.querySelector('.testimonials-carousel');
+  if (carousel) {
+    let startX = 0;
+    let startY = 0;
+    let isDragging = false;
+
+    carousel.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+      isDragging = true;
+    });
+
+    carousel.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      e.preventDefault(); // Prevent scrolling
+    });
+
+    carousel.addEventListener('touchend', (e) => {
+      if (!isDragging) return;
+      
+      const endX = e.changedTouches[0].clientX;
+      const endY = e.changedTouches[0].clientY;
+      const diffX = startX - endX;
+      const diffY = startY - endY;
+
+      // Only trigger if horizontal swipe is more significant than vertical
+      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+        if (diffX > 0) {
+          nextTestimonial(); // Swipe left = next
+        } else {
+          prevTestimonial(); // Swipe right = previous  
+        }
+      }
+      
+      isDragging = false;
+    });
+  }
+  
   // Auto-advance carousel
   setInterval(() => {
     testimonialIndex = (testimonialIndex + 1) % testimonials.length;
