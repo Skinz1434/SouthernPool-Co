@@ -1,0 +1,19 @@
+{
+  "name": "southernpool-co",
+  "version": "1.0.0",
+  "description": "Premium pool construction company website - Louisiana's finest pool builders",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "deploy": "vercel --prod"
+  },
+  "keywords": [
+    "pool",
+    "construction",
+    "louisiana",
+    "swimming pool",
+    "contractor"
+  ],
+  "author": "SouthernPool Co",
+  "license": "MIT"
+}
