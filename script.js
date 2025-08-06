@@ -5,6 +5,7 @@
 
 // === GLOBAL STATE ===
 let testimonialIndex = 0;
+let testimonialsPerView = 3; // Default for desktop
 let testimonials = [];
 let galleryImages = [];
 let isDarkMode = localStorage.getItem('theme') === 'dark' || 
@@ -23,6 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Initialize carousel after testimonials are loaded
   setTimeout(initializeTestimonialCarousel, 100);
+  
+  // Update testimonials per view on resize
+  window.addEventListener('resize', updateTestimonialsPerView);
+  updateTestimonialsPerView();
 });
 
 // === THEME MANAGEMENT ===
@@ -50,7 +55,28 @@ function toggleTheme() {
   }, 300);
 }
 
-// === TESTIMONIALS MANAGEMENT ===
+// === TESTIMONIALS CAROUSEL 2.0 ===
+function updateTestimonialsPerView() {
+  const width = window.innerWidth;
+  if (width <= 768) {
+    testimonialsPerView = 1; // Mobile
+  } else if (width <= 1024) {
+    testimonialsPerView = 2; // Tablet
+  } else {
+    testimonialsPerView = 3; // Desktop
+  }
+  
+  // Update display if testimonials are already loaded
+  if (testimonials.length > 0) {
+    // Reset index to stay within bounds
+    const maxIndex = Math.max(0, testimonials.length - testimonialsPerView);
+    testimonialIndex = Math.min(testimonialIndex, maxIndex);
+    
+    updatePaginationDots();
+    updateTestimonialDisplay();
+  }
+}
+
 async function loadTestimonials() {
   try {
     const response = await fetch('testimonials.json');
@@ -105,12 +131,12 @@ function getFallbackTestimonials() {
 
 function renderTestimonials() {
   const track = document.getElementById('testimonialTrack');
-  const dots = document.getElementById('carouselDots');
+  const pagination = document.getElementById('carouselPagination');
   
-  if (!track || !dots) return;
+  if (!track || !pagination) return;
   
   track.innerHTML = '';
-  dots.innerHTML = '';
+  pagination.innerHTML = '';
   
   testimonials.forEach((testimonial, index) => {
     // Create testimonial slide
@@ -125,14 +151,28 @@ function renderTestimonials() {
       </div>
     `;
     track.appendChild(slide);
-    
-    // Create dot indicator
-    const dot = document.createElement('button');
-    dot.className = `carousel-dot ${index === 0 ? 'active' : ''}`;
-    dot.setAttribute('aria-label', `Go to testimonial ${index + 1}`);
-    dot.onclick = () => goToTestimonial(index);
-    dots.appendChild(dot);
   });
+  
+  // Create pagination dots based on groups of testimonials
+  updatePaginationDots();
+}
+
+function updatePaginationDots() {
+  const pagination = document.getElementById('carouselPagination');
+  if (!pagination) return;
+  
+  pagination.innerHTML = '';
+  
+  // Calculate number of pages needed
+  const totalPages = Math.ceil(testimonials.length / testimonialsPerView);
+  
+  for (let i = 0; i < totalPages; i++) {
+    const dot = document.createElement('button');
+    dot.className = `carousel-dot ${i === 0 ? 'active' : ''}`;
+    dot.setAttribute('aria-label', `Go to testimonials page ${i + 1}`);
+    dot.onclick = () => goToTestimonial(i * testimonialsPerView);
+    pagination.appendChild(dot);
+  }
 }
 
 function generateStars(rating) {
@@ -159,25 +199,38 @@ function updateTestimonialDisplay() {
   
   if (!track) return;
   
-  track.style.transform = `translateX(-${testimonialIndex * 100}%)`;
+  // Calculate percentage based on testimonials per view
+  const translateX = -(testimonialIndex * (100 / testimonialsPerView));
+  track.style.transform = `translateX(${translateX}%)`;
   
-  dots.forEach((dot, index) => {
-    dot.classList.toggle('active', index === testimonialIndex);
+  // Update active page dot
+  dots.forEach((dot, pageIndex) => {
+    const isActivePage = pageIndex === Math.floor(testimonialIndex / testimonialsPerView);
+    dot.classList.toggle('active', isActivePage);
   });
 }
 
 function goToTestimonial(index) {
-  testimonialIndex = index;
+  // Ensure we don't go past available testimonials
+  const maxIndex = Math.max(0, testimonials.length - testimonialsPerView);
+  testimonialIndex = Math.min(index, maxIndex);
   updateTestimonialDisplay();
 }
 
 function prevTestimonial() {
-  testimonialIndex = testimonialIndex === 0 ? testimonials.length - 1 : testimonialIndex - 1;
+  const maxIndex = Math.max(0, testimonials.length - testimonialsPerView);
+  if (testimonialIndex === 0) {
+    testimonialIndex = maxIndex;
+  } else {
+    testimonialIndex = Math.max(0, testimonialIndex - testimonialsPerView);
+  }
   updateTestimonialDisplay();
 }
 
 function nextTestimonial() {
-  testimonialIndex = (testimonialIndex + 1) % testimonials.length;
+  const maxIndex = Math.max(0, testimonials.length - testimonialsPerView);
+  testimonialIndex = testimonialIndex >= maxIndex ? 0 : 
+                    Math.min(maxIndex, testimonialIndex + testimonialsPerView);
   updateTestimonialDisplay();
 }
 
@@ -358,8 +411,8 @@ function initializeLottieAnimations() {
 
 // === TIMELINE ANIMATION ===
 function initializeTimelineAnimation() {
-  const timeline = document.querySelector('.timeline');
-  if (!timeline) return;
+  const timelineContainer = document.querySelector('.timeline-container');
+  if (!timelineContainer) return;
   
   const timelineObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -370,16 +423,72 @@ function initializeTimelineAnimation() {
     });
   }, { threshold: 0.3 });
   
-  timelineObserver.observe(timeline);
+  timelineObserver.observe(timelineContainer);
 }
 
 function animateTimelineProgress() {
+  const progressPath = document.querySelector('.timeline-progress');
   const steps = document.querySelectorAll('.timeline-step');
+  const stepIcons = document.querySelectorAll('.step-icon');
   
+  // Start the SVG path animation
+  if (progressPath) {
+    progressPath.style.animation = 'timelineProgress 2s ease-out forwards';
+    progressPath.style.animationDelay = '0.5s';
+  }
+  
+  // Animate steps with staggered delays
   steps.forEach((step, index) => {
     setTimeout(() => {
       step.classList.add('show');
-    }, index * 200);
+      
+      // Add pulse animation to step markers
+      const marker = step.querySelector('.step-marker');
+      if (marker) {
+        marker.style.animation = 'markerPulse 0.6s ease-out forwards';
+        marker.style.animationDelay = '0.2s';
+      }
+      
+      // Animate individual step icons
+      const icon = step.querySelector('.step-icon');
+      if (icon) {
+        setTimeout(() => {
+          icon.style.animation = 'drawIcon 1s ease-out forwards';
+        }, 300);
+      }
+    }, 800 + (index * 300)); // Staggered animation with 300ms between steps
+  });
+  
+  // Add hover interactions after animation completes
+  setTimeout(() => {
+    addTimelineInteractivity();
+  }, 3000);
+}
+
+function addTimelineInteractivity() {
+  const steps = document.querySelectorAll('.timeline-step');
+  
+  steps.forEach((step, index) => {
+    step.addEventListener('mouseenter', () => {
+      // Highlight the step and add subtle scaling
+      step.style.transform = 'translateY(-10px) scale(1.05)';
+      step.style.transition = 'all 0.3s var(--ease-premium)';
+      
+      // Add glow effect to the step marker
+      const marker = step.querySelector('.step-marker');
+      if (marker) {
+        marker.style.boxShadow = 'var(--shadow-premium), 0 0 20px rgba(240, 179, 95, 0.4)';
+      }
+    });
+    
+    step.addEventListener('mouseleave', () => {
+      step.style.transform = 'translateY(0) scale(1)';
+      
+      const marker = step.querySelector('.step-marker');
+      if (marker) {
+        marker.style.boxShadow = 'var(--shadow-elevated)';
+      }
+    });
   });
 }
 

@@ -1,6 +1,6 @@
 /**
- * THREE.JS HERO - Water Surface with Floating Logo
- * Optimized for performance and mobile compatibility
+ * THREE.JS HERO V2.5 - Enhanced Water Surface with Caustics & Bubbles
+ * Premium features: Caustic overlays, bubble particles, mouse parallax
  */
 
 import * as THREE from 'three';
@@ -12,10 +12,14 @@ class WaterHero {
     this.renderer = null;
     this.water = null;
     this.logo = null;
+    this.bubbleSystem = null;
+    this.causticMesh = null;
     this.clock = new THREE.Clock();
     this.mouse = new THREE.Vector2();
     this.windowHalfX = window.innerWidth / 2;
     this.windowHalfY = window.innerHeight / 2;
+    this.bubbles = [];
+    this.parallaxStrength = 0.1;
     
     this.init();
   }
@@ -54,6 +58,12 @@ class WaterHero {
 
     // Create water surface
     this.createWater();
+    
+    // Create caustic overlay
+    this.createCaustics();
+    
+    // Create bubble particle system
+    this.createBubbleSystem();
     
     // Create floating logo
     this.createLogo();
@@ -187,6 +197,126 @@ class WaterHero {
     this.scene.add(this.water);
   }
 
+  createCaustics() {
+    // Caustic overlay plane positioned above water
+    const causticGeometry = new THREE.PlaneGeometry(100, 100, 32, 32);
+    
+    const causticMaterial = new THREE.ShaderMaterial({
+      uniforms: {
+        time: { value: 0.0 },
+        causticStrength: { value: 0.4 },
+        causticScale: { value: 8.0 },
+        causticSpeed: { value: 0.8 }
+      },
+      vertexShader: `
+        varying vec2 vUv;
+        varying vec3 vWorldPosition;
+        
+        void main() {
+          vUv = uv;
+          vec4 worldPosition = modelMatrix * vec4(position, 1.0);
+          vWorldPosition = worldPosition.xyz;
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+      `,
+      fragmentShader: `
+        uniform float time;
+        uniform float causticStrength;
+        uniform float causticScale;
+        uniform float causticSpeed;
+        varying vec2 vUv;
+        varying vec3 vWorldPosition;
+
+        // Caustic function based on underwater light refraction
+        float caustic(vec2 uv, float time) {
+          vec2 p = uv * causticScale;
+          
+          for(int i = 1; i < 5; i++) {
+            vec2 newp = p;
+            newp.x += 0.6 / float(i) * sin(float(i) * p.y + time * causticSpeed + 0.3 * float(i));
+            newp.y += 0.6 / float(i) * sin(float(i) * p.x + time * causticSpeed + 0.3 * float(i));
+            p = newp;
+          }
+          
+          vec3 col = vec3(0.5 * sin(3.0 * p.x) + 0.5, 0.5 * sin(3.0 * p.y) + 0.5, sin(p.x + p.y));
+          return length(col);
+        }
+
+        void main() {
+          vec2 st = vUv;
+          
+          // Create moving caustic patterns
+          float caustic1 = caustic(st + vec2(time * 0.1, 0.0), time);
+          float caustic2 = caustic(st + vec2(0.0, time * 0.15), time + 1.0);
+          
+          // Combine caustics
+          float causticPattern = (caustic1 + caustic2) * 0.5;
+          
+          // Create subtle ripple distortion
+          vec2 ripple = vec2(
+            sin(st.x * 20.0 + time * 2.0) * 0.01,
+            sin(st.y * 15.0 + time * 1.5) * 0.01
+          );
+          
+          causticPattern = caustic(st + ripple, time) * causticStrength;
+          
+          // Blue-green caustic color
+          vec3 causticColor = vec3(0.2, 0.6, 0.8) * causticPattern;
+          
+          // Fade out towards edges
+          float edgeFade = smoothstep(0.0, 0.3, min(min(st.x, 1.0 - st.x), min(st.y, 1.0 - st.y)));
+          
+          gl_FragColor = vec4(causticColor, causticPattern * edgeFade * 0.6);
+        }
+      `,
+      transparent: true,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false
+    });
+
+    this.causticMesh = new THREE.Mesh(causticGeometry, causticMaterial);
+    this.causticMesh.position.set(0, 8, -10);
+    this.causticMesh.rotation.x = -Math.PI / 6;
+    this.scene.add(this.causticMesh);
+  }
+
+  createBubbleSystem() {
+    // Create bubble particles with geometry instancing for performance
+    const bubbleGeometry = new THREE.SphereGeometry(0.1, 8, 8);
+    const bubbleMaterial = new THREE.MeshPhongMaterial({
+      color: 0xaaffff,
+      transparent: true,
+      opacity: 0.4,
+      shininess: 100
+    });
+
+    // Create bubble instances
+    for (let i = 0; i < 15; i++) {
+      const bubble = new THREE.Mesh(bubbleGeometry, bubbleMaterial);
+      
+      // Random starting positions
+      bubble.position.set(
+        (Math.random() - 0.5) * 80,
+        -10 - Math.random() * 20,
+        (Math.random() - 0.5) * 80
+      );
+      
+      // Random bubble properties
+      bubble.userData = {
+        speed: 0.5 + Math.random() * 0.8,
+        wobble: Math.random() * 0.02,
+        phase: Math.random() * Math.PI * 2,
+        scale: 0.5 + Math.random() * 1.5
+      };
+      
+      bubble.scale.setScalar(bubble.userData.scale);
+      bubble.castShadow = true;
+      
+      this.bubbles.push(bubble);
+      this.scene.add(bubble);
+    }
+  }
+
   createLogo() {
     // Create floating logo geometry (simple ring representing pool)
     const logoGroup = new THREE.Group();
@@ -266,10 +396,30 @@ class WaterHero {
   }
 
   addEventListeners() {
-    // Mouse movement for interactive ripples
+    // Mouse movement for interactive ripples and parallax tilt
     window.addEventListener('mousemove', (event) => {
       this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
       this.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+      
+      // Apply mouse parallax tilt (max 10 degrees)
+      const tiltX = this.mouse.y * this.parallaxStrength;
+      const tiltY = -this.mouse.x * this.parallaxStrength;
+      
+      // Apply tilt to scene elements
+      if (this.water) {
+        this.water.rotation.x = -Math.PI / 2 + tiltX;
+        this.water.rotation.z = tiltY;
+      }
+      
+      if (this.causticMesh) {
+        this.causticMesh.rotation.x = -Math.PI / 6 + tiltX * 0.5;
+        this.causticMesh.rotation.z = tiltY * 0.5;
+      }
+      
+      if (this.logo) {
+        this.logo.rotation.x = -Math.PI / 6 + tiltX * 0.3;
+        this.logo.rotation.z = tiltY * 0.3;
+      }
     });
 
     // Resize handler
@@ -321,10 +471,41 @@ class WaterHero {
       this.water.material.uniforms.mouse.value = this.mouse;
     }
     
+    // Update caustic overlay
+    if (this.causticMesh) {
+      this.causticMesh.material.uniforms.time.value = elapsedTime;
+    }
+    
+    // Animate bubble particles (10fps for low CPU usage)
+    if (elapsedTime % 0.1 < 0.016) {
+      this.bubbles.forEach((bubble, index) => {
+        const userData = bubble.userData;
+        
+        // Move bubble upward
+        bubble.position.y += userData.speed * 0.3;
+        
+        // Add horizontal wobble
+        bubble.position.x += Math.sin(elapsedTime * 2 + userData.phase) * userData.wobble;
+        bubble.position.z += Math.cos(elapsedTime * 1.5 + userData.phase) * userData.wobble;
+        
+        // Reset bubble when it reaches the top
+        if (bubble.position.y > 25) {
+          bubble.position.set(
+            (Math.random() - 0.5) * 80,
+            -10 - Math.random() * 20,
+            (Math.random() - 0.5) * 80
+          );
+        }
+        
+        // Subtle size variation
+        const sizeVariation = 1 + Math.sin(elapsedTime + userData.phase) * 0.1;
+        bubble.scale.setScalar(userData.scale * sizeVariation);
+      });
+    }
+    
     // Animate logo floating
     if (this.logo) {
       this.logo.position.y = 5 + Math.sin(elapsedTime * 0.5) * 1.5;
-      this.logo.rotation.z = Math.sin(elapsedTime * 0.3) * 0.1;
       this.logo.rotation.y += 0.005;
     }
     
@@ -345,6 +526,21 @@ class WaterHero {
       this.water.material.uniforms.waveHeight.value = 0.4;
       this.water.material.uniforms.waveSpeed.value = 0.3;
     }
+    
+    // Reduce caustic intensity on mobile
+    if (this.causticMesh) {
+      this.causticMesh.material.uniforms.causticStrength.value = 0.2;
+      this.causticMesh.material.uniforms.causticScale.value = 4.0;
+    }
+    
+    // Remove some bubbles on mobile for performance
+    const bubblestoRemove = this.bubbles.splice(8);
+    bubblestoRemove.forEach(bubble => {
+      this.scene.remove(bubble);
+      bubble.geometry.dispose();
+      bubble.material.dispose();
+    });
+    
     this.renderer.setPixelRatio(1);
   }
 
@@ -356,6 +552,16 @@ class WaterHero {
     if (this.water) {
       this.water.geometry.dispose();
       this.water.material.dispose();
+    }
+    if (this.causticMesh) {
+      this.causticMesh.geometry.dispose();
+      this.causticMesh.material.dispose();
+    }
+    if (this.bubbles) {
+      this.bubbles.forEach(bubble => {
+        bubble.geometry.dispose();
+        bubble.material.dispose();
+      });
     }
     if (this.logo) {
       this.logo.children.forEach(child => {

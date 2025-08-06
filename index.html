@@ -28,11 +28,40 @@
     </script>
 </head>
 <body>
-    <!-- 3D Hero Section -->
+    <!-- Enhanced Header with Glassmorphism -->
+    <header class="main-header" role="banner">
+        <nav class="glassmorphism-nav" role="navigation" aria-label="Main navigation">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <img src="photos/logo2.png" alt="SouthernPool Co Logo" class="nav-logo">
+                </div>
+                <ul class="nav-links" role="menubar">
+                    <li role="none"><a href="#gallery" role="menuitem">Gallery</a></li>
+                    <li role="none"><a href="#services" role="menuitem">Services</a></li>
+                    <li role="none"><a href="#process" role="menuitem">Process</a></li>
+                    <li role="none"><a href="#testimonials" role="menuitem">Reviews</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Switch theme">
+                        <span class="sun-icon">☀</span>
+                        <span class="moon-icon">🌙</span>
+                    </button>
+                    <button class="cta-nav" onclick="scrollToQuote()" aria-describedby="nav-cta-desc">
+                        Get a Quote
+                        <span id="nav-cta-desc" class="sr-only">Jump to quote form</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Enhanced 3D Hero Section -->
     <section id="hero" class="hero-section" role="banner" aria-labelledby="hero-title">
         <canvas id="hero-canvas" class="hero-canvas"></canvas>
+        <div class="caustic-overlay" id="causticOverlay"></div>
+        <div class="bubble-container" id="bubbleContainer" aria-hidden="true"></div>
         <div class="hero-overlay"></div>
-        <div class="hero-content">
+        <div class="hero-content" data-mouse-parallax="true">
             <h1 id="hero-title" class="hero-title">Crafting Dreams in Water</h1>
             <h2 class="hero-subtitle">Louisiana's premier pool artisans, creating liquid luxury since 1985</h2>
             <button class="cta-primary" onclick="scrollToQuote()" aria-describedby="cta-desc">
@@ -43,117 +72,178 @@
         <div class="scroll-indicator" aria-hidden="true">
             <div class="scroll-arrow"></div>
         </div>
+        <div class="hero-vignette" aria-hidden="true"></div>
     </section>
 
-    <!-- Floating Navigation -->
-    <nav class="floating-nav" role="navigation" aria-label="Main navigation">
-        <div class="nav-container">
-            <img src="photos/logo2.png" alt="SouthernPool Co Logo" class="nav-logo">
-            <ul class="nav-links">
-                <li><a href="#gallery">Gallery</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#process">Process</a></li>
-                <li><a href="#testimonials">Reviews</a></li>
-                <li><a href="#quote">Quote</a></li>
-            </ul>
-            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
-                <span class="sun-icon">☀</span>
-                <span class="moon-icon">🌙</span>
-            </button>
-        </div>
-    </nav>
-
-    <!-- Dynamic Gallery Section -->
+    <!-- Enhanced Gallery Section -->
     <section id="gallery" class="gallery-section reveal" role="region" aria-labelledby="gallery-title">
         <div class="container">
             <h2 id="gallery-title" class="section-title">Our Masterpieces</h2>
             <p class="section-subtitle">Every pool tells a story of Louisiana craftsmanship</p>
-            <div class="gallery-grid" id="galleryGrid" role="list">
-                <!-- Dynamically populated from photos directory -->
+            <div class="gallery-masonry" id="galleryGrid" role="list">
+                <!-- Dynamically populated with masonry layout -->
+            </div>
+        </div>
+        <!-- Enhanced Lightbox -->
+        <div id="lightboxModal" class="lightbox-modal" role="dialog" aria-labelledby="lightboxTitle" aria-hidden="true">
+            <div class="lightbox-backdrop" onclick="closeLightbox()"></div>
+            <div class="lightbox-content">
+                <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close gallery">×</button>
+                <button class="lightbox-prev" onclick="prevLightbox()" aria-label="Previous image">‹</button>
+                <button class="lightbox-next" onclick="nextLightbox()" aria-label="Next image">›</button>
+                <img id="lightboxImage" alt="" class="lightbox-image">
+                <div class="lightbox-caption">
+                    <h3 id="lightboxTitle"></h3>
+                    <p id="lightboxDescription"></p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Service Highlights -->
+    <!-- Enhanced Service Cards -->
     <section id="services" class="services-section reveal" role="region" aria-labelledby="services-title">
         <div class="container">
             <h2 id="services-title" class="section-title">Luxury Pool Services</h2>
             <div class="services-grid">
-                <div class="service-card reveal-item">
-                    <div class="service-icon" data-lottie="https://assets9.lottiefiles.com/packages/lf20_w51pcehl.json"></div>
-                    <h3>Custom Design</h3>
-                    <p>Bespoke pool designs tailored to your vision and landscape</p>
-                </div>
-                <div class="service-card reveal-item">
-                    <div class="service-icon" data-lottie="https://assets2.lottiefiles.com/packages/lf20_5njp3vgg.json"></div>
-                    <h3>Smart Technology</h3>
-                    <p>IoT-enabled automation for effortless pool management</p>
-                </div>
-                <div class="service-card reveal-item">
-                    <div class="service-icon" data-lottie="https://assets1.lottiefiles.com/packages/lf20_1pxqjqps.json"></div>
-                    <h3>Eco Solutions</h3>
-                    <p>Sustainable systems that respect Louisiana's natural beauty</p>
-                </div>
+                <article class="service-card reveal-item" data-service="design">
+                    <div class="service-card-inner">
+                        <div class="service-icon-wrapper">
+                            <div class="service-icon" data-lottie="https://assets9.lottiefiles.com/packages/lf20_w51pcehl.json"></div>
+                        </div>
+                        <h3>Custom Design</h3>
+                        <p>Bespoke pool designs tailored to your vision and Louisiana landscape</p>
+                        <img src="photos/augpool3.jpg" alt="Custom luxury pool with premium stone features and landscaping" class="service-image" loading="lazy">
+                        <div class="service-overlay">
+                            <span class="service-cta">View Portfolio →</span>
+                        </div>
+                    </div>
+                </article>
+                <article class="service-card reveal-item" data-service="technology">
+                    <div class="service-card-inner">
+                        <div class="service-icon-wrapper">
+                            <div class="service-icon" data-lottie="https://assets2.lottiefiles.com/packages/lf20_5njp3vgg.json"></div>
+                        </div>
+                        <h3>Smart Technology</h3>
+                        <p>IoT-enabled automation with LED lighting and app control</p>
+                        <img src="photos/decpool1rainbow.jpg" alt="Smart pool with vibrant LED lighting and color-changing features" class="service-image" loading="lazy">
+                        <div class="service-overlay">
+                            <span class="service-cta">See Tech Features →</span>
+                        </div>
+                    </div>
+                </article>
+                <article class="service-card reveal-item" data-service="eco">
+                    <div class="service-card-inner">
+                        <div class="service-icon-wrapper">
+                            <div class="service-icon" data-lottie="https://assets1.lottiefiles.com/packages/lf20_1pxqjqps.json"></div>
+                        </div>
+                        <h3>Eco Solutions</h3>
+                        <p>Sustainable systems with natural integration and energy efficiency</p>
+                        <img src="photos/maypool2.jpg" alt="Eco-friendly pool seamlessly integrated with native Louisiana landscaping" class="service-image" loading="lazy">
+                        <div class="service-overlay">
+                            <span class="service-cta">Learn More →</span>
+                        </div>
+                    </div>
+                </article>
             </div>
         </div>
     </section>
 
-    <!-- Process Timeline -->
+    <!-- Enhanced Process Timeline -->
     <section id="process" class="process-section reveal" role="region" aria-labelledby="process-title">
         <div class="container">
             <h2 id="process-title" class="section-title">From Dream to Dive</h2>
-            <div class="timeline">
-                <div class="timeline-progress" id="timelineProgress"></div>
-                <div class="timeline-step reveal-item" data-step="1">
-                    <div class="step-marker">1</div>
-                    <div class="step-content">
-                        <h3>Consultation</h3>
-                        <p>We listen to your vision and assess your space</p>
+            <div class="timeline-container">
+                <svg class="timeline-path" viewBox="0 0 800 100" aria-hidden="true">
+                    <defs>
+                        <linearGradient id="timelineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="var(--bayou-blue)" />
+                            <stop offset="100%" stop-color="var(--sunset-gold)" />
+                        </linearGradient>
+                    </defs>
+                    <path class="timeline-track" d="M50,50 Q200,30 400,50 T750,50" stroke="rgba(255,255,255,0.2)" stroke-width="3" fill="none"/>
+                    <path class="timeline-progress" d="M50,50 Q200,30 400,50 T750,50" stroke="url(#timelineGradient)" stroke-width="3" fill="none" stroke-dasharray="0,1000"/>
+                </svg>
+                <div class="timeline-steps">
+                    <div class="timeline-step reveal-item" data-step="1">
+                        <div class="step-marker">
+                            <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 16V8a2 2 0 0 0-1-1.73L12 2 4 6.27A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73L12 22l8-4.27A2 2 0 0 0 21 16z"/>
+                                <polyline points="7.5,10 12,15 16.5,10"/>
+                            </svg>
+                            <span class="step-number">1</span>
+                        </div>
+                        <div class="step-content">
+                            <h3>Consultation</h3>
+                            <p>We listen to your vision and assess your space</p>
+                        </div>
                     </div>
-                </div>
-                <div class="timeline-step reveal-item" data-step="2">
-                    <div class="step-marker">2</div>
-                    <div class="step-content">
-                        <h3>Design</h3>
-                        <p>Custom 3D renderings bring your pool to life</p>
+                    <div class="timeline-step reveal-item" data-step="2">
+                        <div class="step-marker">
+                            <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                                <line x1="8" y1="21" x2="16" y2="21"/>
+                                <line x1="12" y1="17" x2="12" y2="21"/>
+                            </svg>
+                            <span class="step-number">2</span>
+                        </div>
+                        <div class="step-content">
+                            <h3>Design</h3>
+                            <p>Custom 3D renderings bring your pool to life</p>
+                        </div>
                     </div>
-                </div>
-                <div class="timeline-step reveal-item" data-step="3">
-                    <div class="step-marker">3</div>
-                    <div class="step-content">
-                        <h3>Construction</h3>
-                        <p>Expert craftsmanship with premium materials</p>
+                    <div class="timeline-step reveal-item" data-step="3">
+                        <div class="step-marker">
+                            <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 9V5a3 3 0 0 0-6 0v4"/>
+                                <rect x="2" y="9" width="20" height="12" rx="2" ry="2"/>
+                            </svg>
+                            <span class="step-number">3</span>
+                        </div>
+                        <div class="step-content">
+                            <h3>Construction</h3>
+                            <p>Expert craftsmanship with premium materials</p>
+                        </div>
                     </div>
-                </div>
-                <div class="timeline-step reveal-item" data-step="4">
-                    <div class="step-marker">4</div>
-                    <div class="step-content">
-                        <h3>Enjoy</h3>
-                        <p>Dive into your personal oasis</p>
+                    <div class="timeline-step reveal-item" data-step="4">
+                        <div class="step-marker">
+                            <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+                                <line x1="9" y1="9" x2="9.01" y2="9"/>
+                                <line x1="15" y1="9" x2="15.01" y2="9"/>
+                            </svg>
+                            <span class="step-number">4</span>
+                        </div>
+                        <div class="step-content">
+                            <h3>Enjoy</h3>
+                            <p>Dive into your personal oasis</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials Carousel -->
+    <!-- Enhanced Testimonials Carousel -->
     <section id="testimonials" class="testimonials-section reveal" role="region" aria-labelledby="testimonials-title">
         <div class="container">
             <h2 id="testimonials-title" class="section-title">Louisiana Loves Us</h2>
-            <div class="testimonials-carousel" aria-live="polite" role="region" aria-label="Customer testimonials">
-                <div class="testimonial-track" id="testimonialTrack">
-                    <!-- Populated from testimonials.json -->
+            <div class="testimonials-carousel-container">
+                <div class="testimonials-carousel" aria-live="polite" role="region" aria-label="Customer testimonials">
+                    <div class="testimonial-track" id="testimonialTrack">
+                        <!-- Populated from testimonials.json -->
+                    </div>
                 </div>
                 <div class="carousel-controls">
                     <button class="carousel-btn prev" onclick="prevTestimonial()" aria-label="Previous testimonial">‹</button>
-                    <div class="carousel-dots" id="carouselDots"></div>
+                    <div class="carousel-pagination" id="carouselPagination"></div>
                     <button class="carousel-btn next" onclick="nextTestimonial()" aria-label="Next testimonial">›</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Quote CTA Footer -->
+    <!-- Enhanced Quote CTA -->
     <section id="quote" class="quote-section" role="region" aria-labelledby="quote-title">
         <div class="container">
             <div class="quote-card glass-morphism">
@@ -198,7 +288,7 @@
         </div>
     </section>
 
-    <!-- Live Chat Widget -->
+    <!-- Enhanced Chat Widget -->
     <div id="chatbot" class="chatbot-widget" role="dialog" aria-labelledby="chat-title" aria-hidden="true">
         <div class="chat-header">
             <h3 id="chat-title">Chat with SouthernPool</h3>
@@ -254,7 +344,7 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="three-hero.js" type="module"></script>
+    <script src="three-hero.js" type="module" defer></script>
     <script src="chatbot.js" defer></script>
     <script src="script.js" defer></script>
 </body>
